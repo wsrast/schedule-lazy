@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReduxExample from './ReduxExample';
 
 const ScheduleStyled = styled.section`
 	display: grid;
@@ -20,7 +21,9 @@ const Schedule = (props) => (
 	<ScheduleStyled>
 		<LabelStyled>Redux State</LabelStyled>
 		<LabelStyled>Context State</LabelStyled>
-		<SectionStyled>Redux Example</SectionStyled>
+		<SectionStyled>
+			<ReduxExample />
+		</SectionStyled>
 		<SectionStyled>Context Example</SectionStyled>
 	</ScheduleStyled>
 );

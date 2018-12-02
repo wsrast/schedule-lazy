@@ -28,6 +28,11 @@ const LIStyled = styled.li`
 	.btn {
 		min-width: 100%;
 		border-radius: 0;
+		background-color: ${({reserved}) => (reserved ? '#900' : '')}
+		
+		&:hover {
+			background-color: ${({reserved}) => (reserved ? '#b00' : '')}
+		}
 	}
 
 	//don't focus the selected button
@@ -37,13 +42,35 @@ const LIStyled = styled.li`
 	}
 `;
 
+const getEndTime = (time) => {
+	let ampm = time.match(/\D+$/),
+		digits = time.match(/^\d+/),
+		is12,
+		isGt12;
+
+	ampm = ampm && Array.isArray(ampm) && ampm[0];
+	digits = digits && Array.isArray(digits) && parseInt(digits[0]);
+	is12 = ++digits === 12;
+	isGt12 = digits > 12;
+
+	if (is12) {
+		ampm = ampm === 'am' ? 'pm' : 'am';
+	} else if (isGt12) {
+		digits = 1;
+	}
+
+	return `${digits}${ampm}`;
+};
+
 const ScheduleControl = (props) => {
 	const {schedule, selectTime} = props;
 	return (
 		<ULStyled>
 			{Object.keys(schedule).map((time) => (
-				<LIStyled key={time}>
-					<Button onClick={() => selectTime(time)}>{time}</Button>
+				<LIStyled key={time} reserved={schedule[time]}>
+					<Button onClick={() => selectTime(time)}>
+						{time}-{getEndTime(time)}
+					</Button>
 				</LIStyled>
 			))}
 		</ULStyled>

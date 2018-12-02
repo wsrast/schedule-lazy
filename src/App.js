@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import Schedule from './Schedule';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const AppStyled = styled.div`
 	text-align: center;

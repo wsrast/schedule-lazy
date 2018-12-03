@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {Button} from 'reactstrap';
+import {Button} from 'reactstrap/dist/reactstrap.full.min';
 
 const ULStyled = styled.ul`
 	display: grid;
 	grid-template-columns: 100%;
 	grid-template-rows: repeat(9, 1fr);
 	height: 200px;
+	padding-left: 0;
 
 	li {
 		margin-bottom: 1px;
@@ -63,12 +64,12 @@ const getEndTime = (time) => {
 };
 
 const ScheduleControl = (props) => {
-	const {schedule, selectTime} = props;
+	const {schedule, handleOpenTime} = props;
 	return (
 		<ULStyled>
 			{Object.keys(schedule).map((time) => (
-				<LIStyled key={time} reserved={schedule[time]}>
-					<Button onClick={() => selectTime(time)}>
+				<LIStyled key={time} reserved={schedule[time].isScheduled}>
+					<Button onClick={() => handleOpenTime(time)}>
 						{time}-{getEndTime(time)}
 					</Button>
 				</LIStyled>

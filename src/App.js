@@ -9,7 +9,7 @@ const AppStyled = styled.div`
 
 const HeaderStyled = styled.header`
 	background-color: #282c34;
-	min-height: 100px;
+	min-height: 15vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

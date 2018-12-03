@@ -6,3 +6,10 @@ export const selectTime = (payload) => (dispatch) => {
 		payload
 	});
 };
+
+export const clearTime = (payload) => (dispatch) => {
+	dispatch({
+		type: types.CLEAR_TIME,
+		payload
+	});
+};

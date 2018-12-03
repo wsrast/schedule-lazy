@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import * as handlers from '../../../shared/handlers';
 
 //import {selectTime} from '../../../actions/schedule';
 import * as scheduleActionCreators from '../../../actions/schedule';
-import ScheduleControl from './ScheduleControl';
+import ScheduleControl from '../../ScheduleControl';
 import SelectTimeModal from '../../SelectTimeModal';
 
 class ReduxSection extends Component {
@@ -16,11 +17,12 @@ class ReduxSection extends Component {
 			props.dispatch
 		);
 
-		this.handleToggle = this.handleToggle.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleOpenTime = this.handleOpenTime.bind(this);
+		this.handleToggle = handlers.handleToggle.bind(this);
+		this.handleCancel = handlers.handleCancel.bind(this);
+		this.handleChange = handlers.handleChange.bind(this);
+		this.handleClear = handlers.handleClear.bind(this);
+		this.handleSubmit = handlers.handleSubmit.bind(this);
+		this.handleOpenTime = handlers.handleOpenTime.bind(this);
 
 		this.state = {
 			isOpen: false,
@@ -32,57 +34,12 @@ class ReduxSection extends Component {
 		};
 	}
 
-	handleToggle = () => {
-		this.setState(({isOpen}) => ({isOpen: !isOpen}));
+	clearTime = (time) => {
+		this.boundActionCreators.clearTime(time);
 	};
 
-	handleCancel = () => {
-		this.handleToggle();
-	};
-
-	handleChange = (e) => {
-		const {name, value} = e.target;
-
-		this.setState({
-			formData: {...this.state.formData, [name]: value}
-		});
-	};
-
-	handleClear = () => {
-		this.boundActionCreators.clearTime({time: this.state.timeOpen});
-		this.setState({
-			timeOpen: null,
-			formData: {name: '', phone: ''}
-		});
-		this.handleToggle();
-	};
-
-	handleSubmit = () => {
-		const {
-			timeOpen,
-			formData: {name, phone}
-		} = this.state;
-
-		this.boundActionCreators.selectTime({
-			time: timeOpen,
-			name,
-			phone
-		});
-		this.setState({timeOpen: null});
-		this.handleToggle();
-	};
-
-	handleOpenTime = (time) => {
-		const {name, phone} = this.props.schedule[time];
-
-		this.handleToggle();
-		this.setState({
-			timeOpen: time,
-			formData: {
-				name,
-				phone
-			}
-		});
+	selectTime = (payload) => {
+		this.boundActionCreators.selectTime(payload);
 	};
 
 	render() {
@@ -92,7 +49,6 @@ class ReduxSection extends Component {
 		return (
 			<section>
 				<h5>Click to set an appointment.</h5>
-				{/*<div>{JSON.stringify(this.props)}</div>*/}
 				<ScheduleControl
 					schedule={schedule}
 					{...this.boundActionCreators}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {ScheduleContextConsumer} from '../../../contexts/ScheduleContext';
 import ScheduleControl from '../../ScheduleControl';
 import SelectTimeModal from '../../SelectTimeModal';
@@ -17,7 +17,7 @@ const ContextSection = () => {
 				handleSubmit,
 				handleChange
 			}) => (
-				<section>
+				<Fragment>
 					<h5>Click to set an appointment</h5>
 					<ScheduleControl
 						schedule={schedule}
@@ -32,7 +32,7 @@ const ContextSection = () => {
 						handleChange={handleChange}
 						formData={formData}
 					/>
-				</section>
+				</Fragment>
 			)}
 		</ScheduleContextConsumer>
 	);

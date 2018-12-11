@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as handlers from '../../../shared/handlers';
@@ -47,7 +47,7 @@ class ReduxSection extends Component {
 			{schedule} = this.props;
 
 		return (
-			<section>
+			<Fragment>
 				<h5>Click to set an appointment.</h5>
 				<ScheduleControl
 					schedule={schedule}
@@ -63,7 +63,7 @@ class ReduxSection extends Component {
 					handleChange={this.handleChange}
 					formData={formData}
 				/>
-			</section>
+			</Fragment>
 		);
 	}
 }
